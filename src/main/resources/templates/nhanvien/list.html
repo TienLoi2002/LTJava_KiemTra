@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+
+      xmlns:custom="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>List product</title>
+</head>
+<body>
+<th:block th:replace="_layout"></th:block>
+<div class="container body-content" layout:fragment="content">
+    <a th:href ="@{/add}" class="btn btn-primary">Create new</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Tên nhân viên</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Nơi Sinh</th>
+            <th scope="col">Lương</th>
+            <th scope="col">Tên Phòng Ban</th>
+            <th scope="col">Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nhanvien: ${listnhanvien}">
+            <th scope="row" th:text="${nhanvien.id}"> </th>
+            <td th:text="${nhanvien.tenNV}"></td>
+            <td>
+                <img height="120" width="150" th:src="@{/img/} + ${nhanvien.phai == 'NAM' ? 'men.png' : 'woman.jpg'}"/>
+            </td>
+            <td th:text="${nhanvien.noiSinh}"></td>
+            <td th:text="${nhanvien.luong}"></td>
+
+            <td th:text="${nhanvien.phongBan.tenPhong}"></td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${nhanvien.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+
+                <a class="btn" custom:linkMethod="post" th:href="@{/update/{id}(id=${nhanvien.id})}">edit</a>
+            </td>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
